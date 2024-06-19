@@ -256,6 +256,10 @@ def _main():
                             new_fields,
                         )
                     else:
+                        logger.info(
+                            "Updating note %s with summary",
+                            note_info["noteId"],
+                        )
                         logger.debug(
                             "Updating note %s with fields %s",
                             note_info["noteId"],
