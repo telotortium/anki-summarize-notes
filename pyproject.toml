@@ -10,6 +10,7 @@ authors = [
     { name = "Robert Irelan", email = "rirelan@gmail.com" }
 ]
 dependencies = [
+    "markdown",
     "requests",
     "requests-ratelimiter",
 ]

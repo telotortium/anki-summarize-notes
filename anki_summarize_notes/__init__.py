@@ -14,6 +14,7 @@ import traceback
 from itertools import islice
 from requests_ratelimiter import LimiterSession
 
+import markdown
 import requests
 
 # Create logger that logs to standard error
@@ -130,18 +131,6 @@ def markdown_llm_summarize(content):
     return summary.decode(encoding="utf-8", errors="strict")
 
 
-def pandoc_markdown_to_html(markdown):
-    proc = subprocess.Popen(
-        [shutil.which("pandoc"), "-fmarkdown", "-thtml"],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-    )
-    (html, _) = proc.communicate(input=markdown.encode("utf-8"), timeout=60)
-    if proc.returncode != 0:
-        raise Exception(f"pandoc failed - returncode = {proc.returncode}")
-    return html.decode(encoding="utf-8", errors="strict")
-
-
 def main():
     try:
         rc = _main()
@@ -247,7 +236,7 @@ def _main():
                     url = note_info["fields"]["resolved_url"]["value"]
                     url_content = jina_ai_content_request.request(url)
                     summary = markdown_llm_summarize(url_content)
-                    summary_html = pandoc_markdown_to_html(summary)
+                    summary_html = markdown.markdown(summary)
                     new_fields = {
                         "summary": summary_html,
                     }
