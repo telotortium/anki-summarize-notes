@@ -219,11 +219,11 @@ def _main():
     if note_infos:
         try:
             for batch in batched(note_infos, BATCH_SIZE):
-                if args.limit_count and processed_count > args.limit_count:
+                if args.limit_count and processed_count >= args.limit_count:
                     break
                 actions = []
                 for note_info in batch:
-                    if args.limit_count and processed_count > args.limit_count:
+                    if args.limit_count and processed_count >= args.limit_count:
                         break
                     summary = note_info["fields"]["summary"]["value"]
                     if summary:
