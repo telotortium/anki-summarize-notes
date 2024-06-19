@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anki-summarize-notes"
+version = "0.1.0"
+description = "Adds LLM-generated summaries of articles referenced by notes"
+authors = [
+    { name = "Robert Irelan", email = "rirelan@gmail.com" }
+]
+dependencies = [
+    "requests",
+    "requests-ratelimiter",
+]
+
+[project.scripts]
+anki-summarize-notes = "anki_summarize_notes.__init__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
